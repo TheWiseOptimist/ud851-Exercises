@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the Share Text Content button is clicked. It will simply share
      * the text contained within the String textThatYouWantToShare.
      *
-     * @param v Button that was clicked.
+      * @param v Button that was clicked.
      */
     public void onClickShareTextButton(View v) {
         Toast.makeText(this, "TODO: Share text when this is clicked", Toast.LENGTH_LONG).show();
