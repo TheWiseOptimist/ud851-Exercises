@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     /*
@@ -40,11 +42,12 @@ public class MainActivity extends AppCompatActivity {
     private TextView mLifecycleDisplay;
 
     // TODO (1) Declare and instantiate a static ArrayList of Strings called mLifecycleCallbacks
+    private static ArrayList<String> mLifecycleCallbacks = new ArrayList<>();
 
     /**
      * Called when the activity is first created. This is where you should do all of your normal
      * static set up: create views, bind data to lists, etc.
-     *
+     * <p>
      * Always followed by onStart().
      *
      * @param savedInstanceState The Activity's previously frozen state, if there was one.
@@ -54,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mLifecycleDisplay = (TextView) findViewById(R.id.tv_lifecycle_events_display);
+        mLifecycleDisplay = findViewById(R.id.tv_lifecycle_events_display);
 
         /*
          * If savedInstanceState is not null, that means our Activity is not being started for the
@@ -72,15 +75,20 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // TODO (4) Iterate backwards through mLifecycleCallbacks, appending each String and a newline to mLifecycleDisplay
-
+        for (int i = mLifecycleCallbacks.size() - 1; i >= 0; i--) { // I had i > 0 originally - missing 1 item each time.
+            String s = mLifecycleCallbacks.get(i) + "\n";
+//                    mLifecycleDisplay.setText(s); //  this is the main error - overwriting all
+            mLifecycleDisplay.append(s);
+        }
         // TODO (5) Clear mLifecycleCallbacks after iterating through it
+        mLifecycleCallbacks.clear();
 
         logAndAppend(ON_CREATE);
     }
 
     /**
      * Called when the activity is becoming visible to the user.
-     *
+     * <p>
      * Followed by onResume() if the activity comes to the foreground, or onStop() if it becomes
      * hidden.
      */
@@ -94,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Called when the activity will start interacting with the user. At this point your activity
      * is at the top of the activity stack, with user input going to it.
-     *
+     * <p>
      * Always followed by onPause().
      */
     @Override
@@ -109,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
      * used to commit unsaved changes to persistent data, stop animations and other things that may
      * be consuming CPU, etc. Implementations of this method must be very quick because the next
      * activity will not be resumed until this method returns.
-     *
+     * <p>
      * Followed by either onResume() if the activity returns back to the front, or onStop() if it
      * becomes invisible to the user.
      */
@@ -125,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
      * resumed and is covering this one. This may happen either because a new activity is being
      * started, an existing one is being brought in front of this one, or this one is being
      * destroyed.
-     *
+     * <p>
      * Followed by either onRestart() if this activity is coming back to interact with the user, or
      * onDestroy() if this activity is going away.
      */
@@ -134,13 +142,13 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
 
         // TODO (2) Add the ON_STOP String to the front of mLifecycleCallbacks
-
+        mLifecycleCallbacks.add(ON_STOP);
         logAndAppend(ON_STOP);
     }
 
     /**
      * Called after your activity has been stopped, prior to it being started again.
-     *
+     * <p>
      * Always followed by onStart()
      */
     @Override
@@ -149,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
 
         logAndAppend(ON_RESTART);
     }
-    
+
     /**
      * The final call you receive before your activity is destroyed. This can happen either because
      * the activity is finishing (someone called finish() on it, or because the system is
@@ -161,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
 
         // TODO (3) Add the ON_DESTROY String to the front of mLifecycleCallbacks
-
+        mLifecycleCallbacks.add(ON_DESTROY);
         logAndAppend(ON_DESTROY);
     }
 
