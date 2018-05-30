@@ -45,9 +45,9 @@ public class MainActivity extends AppCompatActivity
     /* A constant to save and restore the URL that is being displayed */
     private static final String SEARCH_QUERY_URL_EXTRA = "query";
 
-    // TODO (28) Remove the key for storing the search results JSON
+    // TODO completed (28) Remove the key for storing the search results JSON
     /* A constant to save and restore the JSON that is being displayed */
-    private static final String SEARCH_RESULTS_RAW_JSON = "results";
+//    private static final String SEARCH_RESULTS_RAW_JSON = "results";
 
     // TODO completed (2) Create a constant int to uniquely identify your loader. Call it GITHUB_SEARCH_LOADER
     private static final int GITHUB_SEARCH_LOADER = 30;
@@ -78,15 +78,16 @@ public class MainActivity extends AppCompatActivity
         if (savedInstanceState != null) {
             String queryUrl = savedInstanceState.getString(SEARCH_QUERY_URL_EXTRA);
 
-            // TODO (26) Remove the code that retrieves the JSON
-            String rawJsonSearchResults = savedInstanceState.getString(SEARCH_RESULTS_RAW_JSON);
+            // TODO completed (26) Remove the code that retrieves the JSON
+//            String rawJsonSearchResults = savedInstanceState.getString(SEARCH_RESULTS_RAW_JSON);
 
             mUrlDisplayTextView.setText(queryUrl);
-            // TODO (25) Remove the code that displays the JSON
-            mSearchResultsTextView.setText(rawJsonSearchResults);
+            // TODO completed (25) Remove the code that displays the JSON
+//            mSearchResultsTextView.setText(rawJsonSearchResults);
         }
 
-        // TODO (24) Initialize the loader with GITHUB_SEARCH_LOADER as the ID, null for the bundle, and this for the context
+        // TODO completed (24) Initialize the loader with GITHUB_SEARCH_LOADER as the ID, null for the bundle, and this for the context
+        getSupportLoaderManager().initLoader(GITHUB_SEARCH_LOADER, null, this);
     }
 
     /**
@@ -113,9 +114,9 @@ public class MainActivity extends AppCompatActivity
         Bundle queryBundle = new Bundle();
         queryBundle.putString(SEARCH_QUERY_URL_EXTRA, String.valueOf(githubSearchUrl));
 
-        // TODO (21) Call getSupportLoaderManager and store it in a LoaderManager variable
-        // TODO (22) Get our Loader by calling getLoader and passing the ID we specified
-        // TODO (23) If the Loader was null, initialize it. Else, restart it.
+        // TODO completed (21) Call getSupportLoaderManager and store it in a LoaderManager variable
+        // TODO completed (22) Get our Loader by calling getLoader and passing the ID we specified
+        // TODO completed (23) If the Loader was null, initialize it. Else, restart it.
         LoaderManager loaderManager = getSupportLoaderManager();
 //        Loader loader = loaderManager.getLoader(GITHUB_SEARCH_LOADER); // Arguably, it should have <String>, but it seems to function either way
         Loader<String> loader = loaderManager.getLoader(GITHUB_SEARCH_LOADER);
@@ -283,8 +284,8 @@ public class MainActivity extends AppCompatActivity
         String queryUrl = mUrlDisplayTextView.getText().toString();
         outState.putString(SEARCH_QUERY_URL_EXTRA, queryUrl);
 
-        // TODO (27) Remove the code that persists the JSON
-        String rawJsonSearchResults = mSearchResultsTextView.getText().toString();
-        outState.putString(SEARCH_RESULTS_RAW_JSON, rawJsonSearchResults);
+        // TODO completed (27) Remove the code that persists the JSON
+/*        String rawJsonSearchResults = mSearchResultsTextView.getText().toString();
+        outState.putString(SEARCH_RESULTS_RAW_JSON, rawJsonSearchResults);*/
     }
 }
