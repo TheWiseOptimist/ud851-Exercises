@@ -224,7 +224,7 @@ public class MainActivity extends AppCompatActivity
 
     // TODO completed (16) Override onLoaderReset as it is part of the interface we implement, but don't do anything in this method
     @Override
-    public void onLoaderReset(@NonNull android.support.v4.content.Loader<String> loader) {
+    public void onLoaderReset(@NonNull Loader<String> loader) {
 
     }
 
