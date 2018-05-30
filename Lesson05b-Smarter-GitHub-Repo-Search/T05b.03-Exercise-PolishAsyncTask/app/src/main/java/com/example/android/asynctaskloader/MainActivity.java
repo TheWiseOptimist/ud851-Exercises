@@ -56,8 +56,6 @@ public class MainActivity extends AppCompatActivity implements
 
     private ProgressBar mLoadingIndicator;
 
-    private String mGithubJson;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -171,6 +169,7 @@ public class MainActivity extends AppCompatActivity implements
         return new AsyncTaskLoader<String>(this) {
 
             // TODO completed (1) Create a String member variable called mGithubJson that will store the raw JSON
+            String mGithubJson;
 
             @Override
             protected void onStartLoading() {
