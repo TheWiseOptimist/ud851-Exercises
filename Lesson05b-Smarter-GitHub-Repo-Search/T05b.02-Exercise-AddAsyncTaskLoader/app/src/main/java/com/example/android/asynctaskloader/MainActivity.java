@@ -56,14 +56,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mSearchBoxEditText = (EditText) findViewById(R.id.et_search_box);
+        mSearchBoxEditText = findViewById(R.id.et_search_box);
 
-        mUrlDisplayTextView = (TextView) findViewById(R.id.tv_url_display);
-        mSearchResultsTextView = (TextView) findViewById(R.id.tv_github_search_results_json);
+        mUrlDisplayTextView = findViewById(R.id.tv_url_display);
+        mSearchResultsTextView = findViewById(R.id.tv_github_search_results_json);
 
-        mErrorMessageDisplay = (TextView) findViewById(R.id.tv_error_message_display);
+        mErrorMessageDisplay = findViewById(R.id.tv_error_message_display);
 
-        mLoadingIndicator = (ProgressBar) findViewById(R.id.pb_loading_indicator);
+        mLoadingIndicator = findViewById(R.id.pb_loading_indicator);
 
         if (savedInstanceState != null) {
             String queryUrl = savedInstanceState.getString(SEARCH_QUERY_URL_EXTRA);
@@ -133,34 +133,34 @@ public class MainActivity extends AppCompatActivity {
 
     // TODO (3) Override onCreateLoader
     // Within onCreateLoader
-        // TODO (4) Return a new AsyncTaskLoader<String> as an anonymous inner class with this as the constructor's parameter
-            // TODO (5) Override onStartLoading
-                // Within onStartLoading
+    // TODO (4) Return a new AsyncTaskLoader<String> as an anonymous inner class with this as the constructor's parameter
+    // TODO (5) Override onStartLoading
+    // Within onStartLoading
 
-                // TODO (6) If args is null, return.
+    // TODO (6) If args is null, return.
 
-                // TODO (7) Show the loading indicator
+    // TODO (7) Show the loading indicator
 
-                // TODO (8) Force a load
-                // END - onStartLoading
+    // TODO (8) Force a load
+    // END - onStartLoading
 
-            // TODO (9) Override loadInBackground
+    // TODO (9) Override loadInBackground
 
-                // Within loadInBackground
-                // TODO (10) Get the String for our URL from the bundle passed to onCreateLoader
+    // Within loadInBackground
+    // TODO (10) Get the String for our URL from the bundle passed to onCreateLoader
 
-                // TODO (11) If the URL is null or empty, return null
+    // TODO (11) If the URL is null or empty, return null
 
-                // TODO (12) Copy the try / catch block from the AsyncTask's doInBackground method
-                // END - loadInBackground
+    // TODO (12) Copy the try / catch block from the AsyncTask's doInBackground method
+    // END - loadInBackground
 
     // TODO (13) Override onLoadFinished
 
-        // Within onLoadFinished
-        // TODO (14) Hide the loading indicator
+    // Within onLoadFinished
+    // TODO (14) Hide the loading indicator
 
-        // TODO (15) Use the same logic used in onPostExecute to show the data or the error message
-        // END - onLoadFinished
+    // TODO (15) Use the same logic used in onPostExecute to show the data or the error message
+    // END - onLoadFinished
 
     // TODO (16) Override onLoaderReset as it is part of the interface we implement, but don't do anything in this method
 
