@@ -6,6 +6,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+/**
+ * 2018 05 29
+ */
 public class MainActivity extends AppCompatActivity {
 
     /*
@@ -45,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mLifecycleDisplay = (TextView) findViewById(R.id.tv_lifecycle_events_display);
+        mLifecycleDisplay = findViewById(R.id.tv_lifecycle_events_display);
         logAndAppend(ON_CREATE);
         // TODO completed (1) Use logAndAppend within onCreate
     }
