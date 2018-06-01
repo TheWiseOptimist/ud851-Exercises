@@ -54,26 +54,35 @@ public class VisualizerActivity
     private void setupSharedPreferences() {
         // Get all of the values from shared preferences to set it up
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        // TODO completed (3) Register the listener
-        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
         mVisualizerView.setShowBass(sharedPreferences.getBoolean(getString(R.string.pref_show_bass_key),
                 getResources().getBoolean(R.bool.pref_show_bass_default)));
         mVisualizerView.setShowMid(true);
         mVisualizerView.setShowTreble(true);
         mVisualizerView.setMinSizeScale(1);
         mVisualizerView.setColor(getString(R.string.pref_color_red_value));
+        // TODO completed (3) Register the listener
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
     }
 
+    // TODO completed (2) Override the onSharedPreferenceChanged method and update the show bass preference
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        // I left out getString(), so the String key never equalled the int Resourse.
+        if (key.equals(getString(R.string.pref_show_bass_key))) {
+//            mVisualizerView.setShowBass(sharedPreferences.getBoolean(getString(R.string.pref_show_bass_key),
+            mVisualizerView.setShowBass(sharedPreferences.getBoolean(key,
+                    getResources().getBoolean(R.bool.pref_show_bass_default))
+            );
+        }
+    }
 
     // TODO completed (4) Override onDestroy and unregister the listener
-
-
     @Override
     protected void onDestroy() {
+        super.onDestroy();
         SharedPreferences sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(this);
         sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
-        super.onDestroy();
     }
 
     /**
@@ -163,15 +172,4 @@ public class VisualizerActivity
         }
     }
 
-    // TODO completed (2) Override the onSharedPreferenceChanged method and update the show bass preference
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        // I left out getString(), so the String key never equalled the int Resourse.
-        if (key.equals(getString(R.string.pref_show_bass_key))) {
-//            mVisualizerView.setShowBass(sharedPreferences.getBoolean(getString(R.string.pref_show_bass_key),
-            mVisualizerView.setShowBass(sharedPreferences.getBoolean(key,
-                    getResources().getBoolean(R.bool.pref_show_bass_default))
-            );
-        }
-    }
 }
