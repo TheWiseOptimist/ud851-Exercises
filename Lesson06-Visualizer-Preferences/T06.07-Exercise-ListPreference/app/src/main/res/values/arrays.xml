@@ -12,7 +12,5 @@
         <item>@string/pref_color_green_value</item>
 
     </array>
-    <string name="pref_color_red_title">Red</string>
-    <string name="pref_color_blue_title">Blue</string>
-    <string name="pref_color_green_title">Green</string>
+
 </resources>

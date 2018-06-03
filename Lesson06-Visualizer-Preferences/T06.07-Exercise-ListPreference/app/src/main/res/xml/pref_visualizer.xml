@@ -29,6 +29,7 @@
         android:entries="@array/pref_color_title"
         android:entryValues="@array/pref_color_value"
         android:key="@string/pref_shape_color_key"
+        android:summary="%s"
         android:title="@string/pref_shape_color_value" />
 
 </PreferenceScreen>
