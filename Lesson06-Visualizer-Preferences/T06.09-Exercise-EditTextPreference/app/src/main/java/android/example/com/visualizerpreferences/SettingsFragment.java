@@ -16,9 +16,11 @@ package android.example.com.visualizerpreferences;
  * limitations under the License.
  */
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
+import android.support.annotation.MainThread;
 import android.support.v7.preference.CheckBoxPreference;
 import android.support.v7.preference.EditTextPreference;
 import android.support.v7.preference.ListPreference;
@@ -73,7 +75,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
      * @param value      The value that the preference was updated to
      */
     private void setPreferenceSummary(Preference preference, String value) {
-        // TODO (3) Don't forget to add code here to properly set the summary for an EditTextPreference
+        // TODO completed (3) Don't forget to add code here to properly set the summary for an EditTextPreference
         if (preference instanceof ListPreference) {
             // For list preferences, figure out the label of the selected value
             ListPreference listPreference = (ListPreference) preference;
@@ -83,8 +85,25 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
                 listPreference.setSummary(listPreference.getEntries()[prefIndex]);
             }
         }
+        if (preference instanceof EditTextPreference) {
+            preference.setSummary(value);
+
+            if (preference.getTitle().equals(getString(R.string.pref_size_label))) {
+                try {
+                    float size = Float.parseFloat(value);
+                    if (size > 0.0 && size <= 3.0) {
+                        preference.setSummary(value);
+                    } else {
+                        Toast.makeText(getContext(), "Out of Range", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getContext(), "Invalid Entry", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
-    
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
