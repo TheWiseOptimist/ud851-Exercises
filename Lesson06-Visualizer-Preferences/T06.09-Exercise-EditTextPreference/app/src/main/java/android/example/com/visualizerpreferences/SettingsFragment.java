@@ -19,6 +19,7 @@ package android.example.com.visualizerpreferences;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.support.v7.preference.Preference.OnPreferenceChangeListener;
 import android.os.Bundle;
 import android.support.annotation.MainThread;
 import android.support.v7.preference.CheckBoxPreference;
@@ -30,8 +31,10 @@ import android.support.v7.preference.PreferenceScreen;
 import android.widget.Toast;
 
 
-public class SettingsFragment extends PreferenceFragmentCompat implements
-        OnSharedPreferenceChangeListener {
+public class SettingsFragment
+        extends PreferenceFragmentCompat
+        implements OnSharedPreferenceChangeListener,
+        OnPreferenceChangeListener {
 
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
@@ -53,6 +56,31 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
                 setPreferenceSummary(p, value);
             }
         }
+        Preference preference = findPreference(getString(R.string.pref_size_key));
+        preference.setOnPreferenceChangeListener(this);
+    }
+
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+
+        if (preference.getKey().equals(getString(R.string.pref_size_key))) {
+            Toast error = Toast.makeText(getContext(),
+                    "Please enter a number between 0 and 3", Toast.LENGTH_SHORT);
+
+            float size = 0;
+            try {
+                size = Float.parseFloat((String) newValue);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+                error.show();
+            }
+            if (size > 0 && size <= 3) {
+                return true;
+            } else {
+                error.show();
+            }
+        }
+        return false;
     }
 
     @Override
@@ -117,4 +145,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
         getPreferenceScreen().getSharedPreferences()
                 .unregisterOnSharedPreferenceChangeListener(this);
     }
+
+
 }
