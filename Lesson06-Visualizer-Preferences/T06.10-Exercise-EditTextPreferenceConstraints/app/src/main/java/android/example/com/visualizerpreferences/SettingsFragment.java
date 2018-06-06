@@ -19,6 +19,7 @@ package android.example.com.visualizerpreferences;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.preference.CheckBoxPreference;
 import android.support.v7.preference.EditTextPreference;
 import android.support.v7.preference.ListPreference;
@@ -27,9 +28,13 @@ import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceScreen;
 import android.widget.Toast;
 
-// TODO (1) Implement OnPreferenceChangeListener
-public class SettingsFragment extends PreferenceFragmentCompat implements
-        OnSharedPreferenceChangeListener {
+import java.util.Set;
+
+// TODO completed (1) Implement OnPreferenceChangeListener
+public class SettingsFragment
+        extends PreferenceFragmentCompat
+        implements OnSharedPreferenceChangeListener,
+        Preference.OnPreferenceChangeListener {
 
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
@@ -50,8 +55,13 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
                 String value = sharedPreferences.getString(p.getKey(), "");
                 setPreferenceSummary(p, value);
             }
+            // Alternative solution for TODO completed (3)
+            p.setOnPreferenceChangeListener(this);
         }
-        // TODO (3) Add the OnPreferenceChangeListener specifically to the EditTextPreference
+        // TODO completed (3) Add the OnPreferenceChangeListener specifically to the EditTextPreference
+//        Preference preference = findPreference(getString(R.string.pref_size_key));
+//        preference.setOnPreferenceChangeListener(this);
+
     }
 
     @Override
@@ -64,6 +74,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
                 String value = sharedPreferences.getString(preference.getKey(), "");
                 setPreferenceSummary(preference, value);
             }
+
         }
     }
 
@@ -88,10 +99,28 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
         }
     }
 
-    // TODO (2) Override onPreferenceChange. This method should try to convert the new preference value
+    // TODO completed (2) Override onPreferenceChange. This method should try to convert the new preference value
     // to a float; if it cannot, show a helpful error message and return false. If it can be converted
     // to a float check that that float is between 0 (exclusive) and 3 (inclusive). If it isn't, show
     // an error message and return false. If it is a valid number, return true.
+    @Override
+    public boolean onPreferenceChange(final Preference preference, Object newValue) {
+        if (preference.getKey().equals(getString(R.string.pref_size_key))) {
+            Toast error = Toast.makeText(getContext(), "Need entry between 0.0 & 3.0", Toast.LENGTH_SHORT);
+            try {
+                float size = Float.parseFloat((String) newValue);
+                if (size <= 0.0 || size > 3.0) {
+                    error.show();
+                    return false;
+                }
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+                error.show();
+                return false;
+            }
+        }
+        return true;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -106,4 +135,5 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
         getPreferenceScreen().getSharedPreferences()
                 .unregisterOnSharedPreferenceChangeListener(this);
     }
+
 }
