@@ -36,7 +36,7 @@ public class SettingsFragment
         implements OnSharedPreferenceChangeListener,
         Preference.OnPreferenceChangeListener {
 
-    @Override
+
     public void onCreatePreferences(Bundle bundle, String s) {
 
         // Add visualizer preferences, defined in the XML file in res->xml->pref_visualizer
