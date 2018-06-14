@@ -13,9 +13,9 @@
         android:background="@drawable/circle"
         android:fontFamily="sans-serif"
         android:gravity="center"
+        android:text="@string/default_party_size"
         android:textColor="@android:color/white"
-        android:textSize="16sp"
-        android:text="@string/default_party_size"/>
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/name_text_view"
@@ -24,8 +24,8 @@
         android:layout_marginLeft="16dp"
         android:layout_weight="1"
         android:fontFamily="sans-serif"
-        android:textSize="16sp"
-        android:text="@string/default_guest_name"/>
+        android:text="@string/default_guest_name"
+        android:textSize="16sp" />
 
 
 </LinearLayout>
