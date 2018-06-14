@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
             partySize = Integer.parseInt(mNewPartySizeEditText.getText().toString());
         } catch (NumberFormatException e) {
             e.printStackTrace();
+            Log.e(LOG_TAG, "Error entering party size" + e.getMessage());
         }
 
         // TODO completed (14) call addGuest with the guest name and party size
