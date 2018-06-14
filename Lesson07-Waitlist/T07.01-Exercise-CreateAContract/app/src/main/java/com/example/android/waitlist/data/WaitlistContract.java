@@ -6,7 +6,7 @@ public class WaitlistContract {
 
 
     // TODO completed (1) Create an inner class named WaitlistEntry class that implements the BaseColumns interface
-    public class WaitListEntry implements BaseColumns {
+    public static final class WaitListEntry implements BaseColumns {
 
         // TODO completed (2) Inside create a static final members for the table name and each of the db columns
 

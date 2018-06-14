@@ -43,7 +43,7 @@ public class ContractClassUnitTest {
         Field[] allFields = entryClass.getDeclaredFields();
         assertEquals("There should be exactly 4 String members in the inner class", 4, allFields.length);
         for (Field field : allFields) {
-            assertTrue("All members in the contract class should be Strings", field.getType()==String.class);
+            assertTrue("All members in the contract class should be Strings", field.getType() == String.class);
             assertTrue("All members in the contract class should be final", Modifier.isFinal(field.getModifiers()));
             assertTrue("All members in the contract class should be static", Modifier.isStatic(field.getModifiers()));
         }

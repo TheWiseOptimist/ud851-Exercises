@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -19,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView waitlistRecyclerView;
 
         // Set local attributes to corresponding views
-        waitlistRecyclerView = (RecyclerView) this.findViewById(R.id.all_guests_list_view);
+        waitlistRecyclerView = this.findViewById(R.id.all_guests_list_view);
 
         // Set layout for the RecyclerView, because it's a list we are using the linear layout
         waitlistRecyclerView.setLayoutManager(new LinearLayoutManager(this));
