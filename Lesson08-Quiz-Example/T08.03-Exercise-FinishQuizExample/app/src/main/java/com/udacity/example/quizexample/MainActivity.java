@@ -171,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
             mCurrentState = STATE_HIDDEN;
             mTextViewWord.setText(mCurrentWord);
             mTextViewDefinition.setText(R.string.think_definition);
+            mData.moveToLast();
 
 
         }
