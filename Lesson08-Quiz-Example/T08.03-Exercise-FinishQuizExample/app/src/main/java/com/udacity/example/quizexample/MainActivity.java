@@ -25,6 +25,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+
 import com.udacity.example.droidtermsprovider.DroidTermsExampleContract;
 
 /**
@@ -33,6 +34,11 @@ import com.udacity.example.droidtermsprovider.DroidTermsExampleContract;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String CURRENT_WORD = "current_word";
+    private static final String CURRENT_DEFINITION = "current_definition";
+    private static final String CURRENT_POSITION = "current_position";
+    private static final String CURRENT_STATE = "current_state";
+    private static final String BUTTON_TEXT = "button_text";
     // The data from the DroidTermsExample content provider
     private Cursor mData;
 
@@ -46,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private String mCurrentDefinition;
     int mWordCol;
     private int mDefCol;
+    private int mCurrentPosition = -1;
 
     // This state is when the word definition is hidden and clicking the button will therefore
     // show the definition
@@ -68,9 +75,28 @@ public class MainActivity extends AppCompatActivity {
         mTextViewWord = findViewById(R.id.text_view_word);
 
         //Run the database operation to get the cursor off of the main thread
-        new WordFetchTask().execute();
 
-        mTextViewWord.setText(mCurrentWord);
+        if (savedInstanceState != null) {
+
+            mButton.setText(savedInstanceState.getString(BUTTON_TEXT));
+
+            mCurrentWord = savedInstanceState.getString(CURRENT_WORD);
+            mTextViewWord.setText(mCurrentWord);
+
+            mCurrentState = savedInstanceState.getInt(CURRENT_STATE);
+            mCurrentDefinition = savedInstanceState.getString(CURRENT_DEFINITION);
+            if (mCurrentState == STATE_HIDDEN) {
+                mTextViewDefinition.setText(R.string.think_definition);
+            } else {
+                mTextViewDefinition.setText(mCurrentDefinition);
+            }
+
+            mCurrentPosition = savedInstanceState.getInt(CURRENT_POSITION);
+
+        } else {
+            new WordFetchTask().execute();
+        }
+
     }
 
     /**
@@ -105,16 +131,17 @@ public class MainActivity extends AppCompatActivity {
 
         if (mData == null) {
             new WordFetchTask().execute();
-        }
 
-        if (!(mData.moveToNext())) {
-            mData.moveToFirst();
-        }
+        } else {
+            if (!mData.moveToNext()) {
+                mData.moveToFirst();
+            }
 
-        mCurrentWord = mData.getString(mWordCol);
-        mCurrentDefinition = mData.getString(mDefCol);
-        mTextViewWord.setText(mCurrentWord);
-        mTextViewDefinition.setText(R.string.think_definition);
+            mCurrentWord = mData.getString(mWordCol);
+            mCurrentDefinition = mData.getString(mDefCol);
+            mTextViewWord.setText(mCurrentWord);
+            mTextViewDefinition.setText(R.string.think_definition);
+        }
     }
 
     public void showDefinition() {
@@ -131,7 +158,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         // TODO completed (5) Remember to close your cursor!
-        mData.close();
+        if (mData != null)
+            mData.close();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(BUTTON_TEXT, mButton.getText().toString());
+        outState.putString(CURRENT_WORD, mCurrentWord);
+        outState.putInt(CURRENT_STATE, mCurrentState);
+        outState.putString(CURRENT_DEFINITION, mCurrentDefinition);
+
+        if (mData != null) {
+            outState.putInt(CURRENT_POSITION, mData.getPosition());
+        } else {
+            outState.putInt(CURRENT_POSITION, mCurrentPosition);
+        }
     }
 
     // Use an async task to do the data fetch off of the main thread.
@@ -159,21 +202,14 @@ public class MainActivity extends AppCompatActivity {
 
             // Set the data for MainActivity
             mData = cursor;
-            mWordCol = cursor.getColumnIndex(DroidTermsExampleContract.COLUMN_WORD);
-            mDefCol = cursor.getColumnIndex(DroidTermsExampleContract.COLUMN_DEFINITION);
+            mWordCol = mData.getColumnIndex(DroidTermsExampleContract.COLUMN_WORD);
+            mDefCol = mData.getColumnIndex(DroidTermsExampleContract.COLUMN_DEFINITION);
 
             // TODO completed (2) Initialize anything that you need the cursor for, such as setting up
             // the screen with the first word and setting any other instance variables
-            mData.moveToFirst();
 
-            mCurrentDefinition = mData.getString(mDefCol);
-            mCurrentWord = mData.getString(mWordCol);
-            mCurrentState = STATE_HIDDEN;
-            mTextViewWord.setText(mCurrentWord);
-            mTextViewDefinition.setText(R.string.think_definition);
-            mData.moveToLast();
-
-
+            mData.moveToPosition(mCurrentPosition);
+            nextWord();
         }
     }
 
