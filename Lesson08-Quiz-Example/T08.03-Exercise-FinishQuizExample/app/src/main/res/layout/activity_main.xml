@@ -23,7 +23,7 @@
         android:layout_margin="16dp"
         android:layout_weight="3"
         android:gravity="center"
-        android:text="A sample word"
+
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -43,6 +43,7 @@
         android:paddingTop="8dp"
         android:paddingRight="32dp"
         android:paddingBottom="8dp"
-        android:text="A sample description. Should be deleted." />
+
+        />
 
 </LinearLayout>

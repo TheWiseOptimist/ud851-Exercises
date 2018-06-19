@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         //Run the database operation to get the cursor off of the main thread
         new WordFetchTask().execute();
 
+        mTextViewWord.setText(mCurrentWord);
     }
 
     /**
@@ -158,15 +159,20 @@ public class MainActivity extends AppCompatActivity {
 
             // Set the data for MainActivity
             mData = cursor;
+            mWordCol = cursor.getColumnIndex(DroidTermsExampleContract.COLUMN_WORD);
+            mDefCol = cursor.getColumnIndex(DroidTermsExampleContract.COLUMN_DEFINITION);
 
             // TODO completed (2) Initialize anything that you need the cursor for, such as setting up
             // the screen with the first word and setting any other instance variables
-            mWordCol = cursor.getColumnIndex(DroidTermsExampleContract.COLUMN_WORD);
-            mDefCol = cursor.getColumnIndex(DroidTermsExampleContract.COLUMN_DEFINITION);
-            cursor.moveToFirst();
+            mData.moveToFirst();
+
             mCurrentDefinition = mData.getString(mDefCol);
             mCurrentWord = mData.getString(mWordCol);
             mCurrentState = STATE_HIDDEN;
+            mTextViewWord.setText(mCurrentWord);
+            mTextViewDefinition.setText(R.string.think_definition);
+
+
         }
     }
 
