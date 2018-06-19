@@ -1,18 +1,18 @@
 /*
-* Copyright (C) 2016 The Android Open Source Project
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*      http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright (C) 2016 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.example.android.todolist;
 
@@ -69,7 +69,7 @@ public class CustomCursorAdapter extends RecyclerView.Adapter<CustomCursorAdapte
     /**
      * Called by the RecyclerView to display data at a specified position in the Cursor.
      *
-     * @param holder The ViewHolder to bind Cursor data to
+     * @param holder   The ViewHolder to bind Cursor data to
      * @param position The position of the data in the Cursor
      */
     @Override
@@ -110,14 +110,18 @@ public class CustomCursorAdapter extends RecyclerView.Adapter<CustomCursorAdapte
     private int getPriorityColor(int priority) {
         int priorityColor = 0;
 
-        switch(priority) {
-            case 1: priorityColor = ContextCompat.getColor(mContext, R.color.materialRed);
+        switch (priority) {
+            case 1:
+                priorityColor = ContextCompat.getColor(mContext, R.color.materialRed);
                 break;
-            case 2: priorityColor = ContextCompat.getColor(mContext, R.color.materialOrange);
+            case 2:
+                priorityColor = ContextCompat.getColor(mContext, R.color.materialOrange);
                 break;
-            case 3: priorityColor = ContextCompat.getColor(mContext, R.color.materialYellow);
+            case 3:
+                priorityColor = ContextCompat.getColor(mContext, R.color.materialYellow);
                 break;
-            default: break;
+            default:
+                break;
         }
         return priorityColor;
     }
