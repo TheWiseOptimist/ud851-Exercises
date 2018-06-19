@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.udacity.example.droidtermsprovider.DroidTermsExampleContract;
 
@@ -39,6 +40,12 @@ public class MainActivity extends AppCompatActivity {
     private int mCurrentState;
 
     private Button mButton;
+    private TextView mTextViewWord;
+    private TextView mTextViewDefinition;
+    private String mCurrentWord;
+    private String mCurrentDefinition;
+    int mWordCol;
+    private int mDefCol;
 
     // This state is when the word definition is hidden and clicking the button will therefore
     // show the definition
@@ -55,8 +62,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Get the views
-        // TODO (1) You'll probably want more than just the Button
-        mButton = (Button) findViewById(R.id.button_next);
+        // TODO completed (1) You'll probably want more than just the Button
+        mButton = findViewById(R.id.button_next);
+        mTextViewDefinition = findViewById(R.id.text_view_definition);
+        mTextViewWord = findViewById(R.id.text_view_word);
 
         //Run the database operation to get the cursor off of the main thread
         new WordFetchTask().execute();
@@ -66,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * This is called from the layout when the button is clicked and switches between the
      * two app states.
+     *
      * @param view The view that was clicked
      */
     public void onButtonClick(View view) {
@@ -87,11 +97,23 @@ public class MainActivity extends AppCompatActivity {
         // Change button text
         mButton.setText(getString(R.string.show_definition));
 
-        // TODO (3) Go to the next word in the Cursor, show the next word and hide the definition
+        // TODO completed (3) Go to the next word in the Cursor, show the next word and hide the definition
         // Note that you shouldn't try to do this if the cursor hasn't been set yet.
         // If you reach the end of the list of words, you should start at the beginning again.
         mCurrentState = STATE_HIDDEN;
 
+        if (mData == null) {
+            new WordFetchTask().execute();
+        }
+
+        if (!(mData.moveToNext())) {
+            mData.moveToFirst();
+        }
+
+        mCurrentWord = mData.getString(mWordCol);
+        mCurrentDefinition = mData.getString(mDefCol);
+        mTextViewWord.setText(mCurrentWord);
+        mTextViewDefinition.setText(R.string.think_definition);
     }
 
     public void showDefinition() {
@@ -99,15 +121,16 @@ public class MainActivity extends AppCompatActivity {
         // Change button text
         mButton.setText(getString(R.string.next_word));
 
-        // TODO (4) Show the definition
+        // TODO completed (4) Show the definition
         mCurrentState = STATE_SHOWN;
-
+        mTextViewDefinition.setText(mCurrentDefinition);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // TODO (5) Remember to close your cursor!
+        // TODO completed (5) Remember to close your cursor!
+        mData.close();
     }
 
     // Use an async task to do the data fetch off of the main thread.
@@ -136,8 +159,14 @@ public class MainActivity extends AppCompatActivity {
             // Set the data for MainActivity
             mData = cursor;
 
-            // TODO (2) Initialize anything that you need the cursor for, such as setting up
+            // TODO completed (2) Initialize anything that you need the cursor for, such as setting up
             // the screen with the first word and setting any other instance variables
+            mWordCol = cursor.getColumnIndex(DroidTermsExampleContract.COLUMN_WORD);
+            mDefCol = cursor.getColumnIndex(DroidTermsExampleContract.COLUMN_DEFINITION);
+            cursor.moveToFirst();
+            mCurrentDefinition = mData.getString(mDefCol);
+            mCurrentWord = mData.getString(mWordCol);
+            mCurrentState = STATE_HIDDEN;
         }
     }
 
