@@ -65,6 +65,7 @@ public class AddTaskActivity extends AppCompatActivity {
         // [Hint] Don't forget to call finish() to return to MainActivity after this insert is complete
         if (uri != null)
             Toast.makeText(getBaseContext(), uri.toString(), Toast.LENGTH_SHORT).show();
+        finish();
     }
 
 
