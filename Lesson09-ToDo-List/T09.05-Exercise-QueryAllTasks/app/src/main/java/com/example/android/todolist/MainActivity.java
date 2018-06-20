@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements
             public Cursor loadInBackground() {
                 // Will implement to load data
 
-                // TODO (5) Query and load all task data in the background; sort by priority
+                // TODO completed (5) Query and load all task data in the background; sort by priority
                 // [Hint] use a try/catch block to catch any errors in loading data
 
                 try {
