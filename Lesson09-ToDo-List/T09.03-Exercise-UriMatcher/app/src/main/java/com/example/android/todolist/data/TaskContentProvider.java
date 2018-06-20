@@ -36,22 +36,22 @@ public class TaskContentProvider extends ContentProvider {
     public static final int TASKS_WITH_ID = 101;
 
     // TODO completed (3) Declare a static variable for the Uri matcher that you construct
-//    public static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-    public static final UriMatcher sUriMatcher = buildUriMatcher();
+    public static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+//    public static final UriMatcher sUriMatcher = buildUriMatcher();
 
     // TODO completed (2) Define a static buildUriMatcher method that associates URI's with their int match
 
-    //    static {
-    //        sUriMatcher.addURI(TaskContract.AUTHORITY, TaskContract.PATH_TASKS, TASKS);
-    //        sUriMatcher.addURI(TaskContract.AUTHORITY, TaskContract.PATH_TASKS + "/#", TASKS_WITH_ID);
-    //    }
+        static {
+            sUriMatcher.addURI(TaskContract.AUTHORITY, TaskContract.PATH_TASKS, TASKS);
+            sUriMatcher.addURI(TaskContract.AUTHORITY, TaskContract.PATH_TASKS + "/#", TASKS_WITH_ID);
+        }
 
-    private static UriMatcher buildUriMatcher() {
-        UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-        uriMatcher.addURI(TaskContract.AUTHORITY, TaskContract.PATH_TASKS, TASKS);
-        uriMatcher.addURI(TaskContract.AUTHORITY, TaskContract.PATH_TASKS + "/#", TASKS_WITH_ID);
-        return uriMatcher;
-    }
+//    private static UriMatcher buildUriMatcher() {
+//        UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+//        uriMatcher.addURI(TaskContract.AUTHORITY, TaskContract.PATH_TASKS, TASKS);
+//        uriMatcher.addURI(TaskContract.AUTHORITY, TaskContract.PATH_TASKS + "/#", TASKS_WITH_ID);
+//        return uriMatcher;
+//    }
 
     // Member variable for a TaskDbHelper that's initialized in the onCreate() method
     private TaskDbHelper mTaskDbHelper;
