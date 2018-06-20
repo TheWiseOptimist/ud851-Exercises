@@ -26,6 +26,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 
+import static android.provider.BaseColumns._ID;
+import static com.example.android.todolist.data.TaskContract.TaskEntry.COLUMN_PRIORITY;
+import static com.example.android.todolist.data.TaskContract.TaskEntry.CONTENT_URI;
 import static com.example.android.todolist.data.TaskContract.TaskEntry.TABLE_NAME;
 
 // Verify that TaskContentProvider extends from ContentProvider and implements required methods
@@ -36,6 +39,7 @@ public class TaskContentProvider extends ContentProvider {
     // and related ints (101, 102, ..) for items in that directory.
     public static final int TASKS = 100;
     public static final int TASK_WITH_ID = 101;
+//    public static final int TASK_WITH_HIGH_PRIORITY = 101;// TODO: 6/20/18
 
     // CDeclare a static variable for the Uri matcher that you construct
     private static final UriMatcher sUriMatcher = buildUriMatcher();
@@ -58,7 +62,7 @@ public class TaskContentProvider extends ContentProvider {
          */
         uriMatcher.addURI(TaskContract.AUTHORITY, TaskContract.PATH_TASKS, TASKS);
         uriMatcher.addURI(TaskContract.AUTHORITY, TaskContract.PATH_TASKS + "/#", TASK_WITH_ID);
-
+//        uriMatcher.addURI(TaskContract.AUTHORITY, TaskContract.PATH_TASKS + "/#", TASK_WITH_HIGH_PRIORITY);// TODO: 6/20/18
         return uriMatcher;
     }
 
@@ -92,6 +96,7 @@ public class TaskContentProvider extends ContentProvider {
         Uri returnUri; // URI to be returned
 
         switch (match) {
+            // Set the value for the returnedUri and write the default case for unknown URI's
             case TASKS:
                 // Insert new values into the database
                 // Inserting values into tasks table
@@ -102,7 +107,7 @@ public class TaskContentProvider extends ContentProvider {
                     throw new android.database.SQLException("Failed to insert row into " + uri);
                 }
                 break;
-            // Set the value for the returnedUri and write the default case for unknown URI's
+
             // Default case throws an UnsupportedOperationException
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -129,11 +134,39 @@ public class TaskContentProvider extends ContentProvider {
 
         // TODO completed (3) Query for the tasks directory and write a default case
         Cursor cursorToReturn;
+        String mSelection;
+        String[] mSelectionArgs;
         switch (match) {
             case TASKS:
                 cursorToReturn = db.query(TABLE_NAME,
-                        projection, selection, selectionArgs, null, null, sortOrder);
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder);
                 break;
+            case TASK_WITH_ID:
+                String id = uri.getPathSegments().get(1);
+                mSelection = _ID + "=?";
+                mSelectionArgs = new String[]{id};
+                cursorToReturn = getContext().getContentResolver()
+                        .query(CONTENT_URI,
+                                null,
+                                mSelection,
+                                mSelectionArgs,
+                                null);
+                break;
+//            case TASK_WITH_HIGH_PRIORITY:// TODO: 6/20/18
+//                mSelection = COLUMN_PRIORITY + "=?";
+//                mSelectionArgs = new String[]{"1"};
+//                cursorToReturn = getContext().getContentResolver()
+//                        .query(CONTENT_URI,
+//                                null,
+//                                mSelection,
+//                                mSelectionArgs,
+//                                null);
+//                break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
