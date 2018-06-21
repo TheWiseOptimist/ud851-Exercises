@@ -1,18 +1,18 @@
 /*
-* Copyright (C) 2016 The Android Open Source Project
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*      http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright (C) 2016 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.example.android.todolist.data;
 
@@ -26,6 +26,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 
+import static android.provider.BaseColumns._ID;
+import static com.example.android.todolist.data.TaskContract.TaskEntry.CONTENT_URI;
 import static com.example.android.todolist.data.TaskContract.TaskEntry.TABLE_NAME;
 
 // Verify that TaskContentProvider extends from ContentProvider and implements required methods
@@ -41,9 +43,10 @@ public class TaskContentProvider extends ContentProvider {
     private static final UriMatcher sUriMatcher = buildUriMatcher();
 
     // Define a static buildUriMatcher method that associates URI's with their int match
+
     /**
-     Initialize a new matcher object without any matches,
-     then use .addURI(String authority, String path, int match) to add matches
+     * Initialize a new matcher object without any matches,
+     * then use .addURI(String authority, String path, int match) to add matches
      */
     public static UriMatcher buildUriMatcher() {
 
@@ -95,7 +98,7 @@ public class TaskContentProvider extends ContentProvider {
                 // Insert new values into the database
                 // Inserting values into tasks table
                 long id = db.insert(TABLE_NAME, null, values);
-                if ( id > 0 ) {
+                if (id > 0) {
                     returnUri = ContentUris.withAppendedId(TaskContract.TaskEntry.CONTENT_URI, id);
                 } else {
                     throw new android.database.SQLException("Failed to insert row into " + uri);
@@ -131,13 +134,24 @@ public class TaskContentProvider extends ContentProvider {
         switch (match) {
             // Query for the tasks directory
             case TASKS:
-                retCursor =  db.query(TABLE_NAME,
+                retCursor = db.query(TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,
                         null,
                         null,
                         sortOrder);
+                break;
+            case TASK_WITH_ID:
+                String id = uri.getPathSegments().get(1);
+                String mSelection = _ID + "=?";
+                String[] mSelectionArgs = new String[]{id};
+                retCursor = getContext().getContentResolver()
+                        .query(CONTENT_URI,
+                                null,
+                                mSelection,
+                                mSelectionArgs,
+                                null);
                 break;
             // Default exception
             default:
@@ -189,10 +203,30 @@ public class TaskContentProvider extends ContentProvider {
 
 
     @Override
-    public int update(@NonNull Uri uri, ContentValues values, String selection,
-                      String[] selectionArgs) {
+    public int update(@NonNull Uri uri, ContentValues values,
+                      String selection, String[] selectionArgs) {
 
-        throw new UnsupportedOperationException("Not yet implemented");
+        final SQLiteDatabase db = mTaskDbHelper.getWritableDatabase();
+
+        //Keep track of if an update occurs
+        int tasksUpdated;
+
+        // match code
+        int match = sUriMatcher.match(uri);
+        switch (match) {
+            case TASK_WITH_ID:
+                String id = uri.getPathSegments().get(1);
+                tasksUpdated = db.update(TABLE_NAME, values, "_id=?", new String[]{id});
+                break;
+            default:
+                throw new UnsupportedOperationException("Unknown uri: " + uri);
+        }
+
+        //set notifications if a task was updated
+        if (tasksUpdated > 0) getContext().getContentResolver().notifyChange(uri, null);
+
+        // return number of tasks updated
+        return tasksUpdated;
     }
 
 

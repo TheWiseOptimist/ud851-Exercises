@@ -1,18 +1,18 @@
 /*
-* Copyright (C) 2016 The Android Open Source Project
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*      http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright (C) 2016 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.example.android.todolist;
 
@@ -26,6 +26,8 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.example.android.todolist.data.TaskContract;
+
+import static com.example.android.todolist.data.TaskContract.TaskEntry.CONTENT_URI;
 
 
 public class AddTaskActivity extends AppCompatActivity {
@@ -41,6 +43,8 @@ public class AddTaskActivity extends AppCompatActivity {
         // Initialize to highest mPriority by default (mPriority = 1)
         ((RadioButton) findViewById(R.id.radButton1)).setChecked(true);
         mPriority = 1;
+        findViewById(R.id.addButton).setVisibility(View.VISIBLE);
+        findViewById(R.id.updateButton).setVisibility(View.GONE);
     }
 
 
@@ -64,11 +68,11 @@ public class AddTaskActivity extends AppCompatActivity {
         contentValues.put(TaskContract.TaskEntry.COLUMN_DESCRIPTION, input);
         contentValues.put(TaskContract.TaskEntry.COLUMN_PRIORITY, mPriority);
         // Insert the content values via a ContentResolver
-        Uri uri = getContentResolver().insert(TaskContract.TaskEntry.CONTENT_URI, contentValues);
+        Uri uri = getContentResolver().insert(CONTENT_URI, contentValues);
 
         // Display the URI that's returned with a Toast
         // [Hint] Don't forget to call finish() to return to MainActivity after this insert is complete
-        if(uri != null) {
+        if (uri != null) {
             Toast.makeText(getBaseContext(), uri.toString(), Toast.LENGTH_LONG).show();
         }
 
@@ -77,6 +81,19 @@ public class AddTaskActivity extends AppCompatActivity {
 
     }
 
+    public void onClickUpdateTask(View view) {
+
+        String input = ((EditText) findViewById(R.id.editTextTaskDescription)).getText().toString();
+        if (input.length() == 0) {
+            return;
+        }
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(TaskContract.TaskEntry.COLUMN_DESCRIPTION, input);
+        contentValues.put(TaskContract.TaskEntry.COLUMN_PRIORITY, mPriority);
+        String id = view.getTag().toString();
+        int tasksUpdated = getContentResolver()
+                .update(CONTENT_URI, contentValues, "_id=?", new String[]{id});
+    }
 
     /**
      * onPrioritySelected is called whenever a priority button is clicked.
@@ -91,4 +108,5 @@ public class AddTaskActivity extends AppCompatActivity {
             mPriority = 3;
         }
     }
+
 }

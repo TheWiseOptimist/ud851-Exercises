@@ -26,6 +26,8 @@
             android:id="@+id/taskDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:longClickable="true"
+            android:onClick="onClickUpdateTask"
             android:textColor="@android:color/primary_text_light"
             style="@style/TextAppearance.AppCompat.Medium" />
 
