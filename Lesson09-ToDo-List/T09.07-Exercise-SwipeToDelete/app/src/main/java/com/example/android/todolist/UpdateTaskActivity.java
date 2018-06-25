@@ -85,20 +85,21 @@ public class UpdateTaskActivity extends AppCompatActivity {
 
     public void onClickUpdateTask(View view) {
 //        String id = CONTENT_URI.getPathSegments().get(1);
-//        Uri uri = CONTENT_URI.buildUpon().appendPath(id).build();
-//        getContentResolver().query(uri, null, null, null, null);
-//
-//        String input = ((EditText) findViewById(R.id.editTextTaskDescription)).getText().toString();
-//        if (input.length() == 0) {
-//            return;
-//        }
-//        ContentValues contentValues = new ContentValues();
-//        contentValues.put(TaskContract.TaskEntry.COLUMN_DESCRIPTION, input);
-//        contentValues.put(TaskContract.TaskEntry.COLUMN_PRIORITY, mPriority);
-////        String id = view.getTag().toString();
-//        int tasksUpdated = getContentResolver()
-//                .update(CONTENT_URI, contentValues, "_id=?", new String[]{id});
-//
+//        String id = CONTENT_URI.getLastPathSegment();
+        Uri uri = CONTENT_URI.buildUpon().appendPath("1").build();
+        getContentResolver().query(uri, null, null, null, null);
+
+        String input = ((EditText) findViewById(R.id.editTextTaskDescription)).getText().toString();
+        if (input.length() == 0) {
+            return;
+        }
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(TaskContract.TaskEntry.COLUMN_DESCRIPTION, input);
+        contentValues.put(TaskContract.TaskEntry.COLUMN_PRIORITY, mPriority);
+//        String id = view.getTag().toString();
+        int tasksUpdated = getContentResolver()
+                .update(CONTENT_URI, contentValues, "_id=?", new String[]{"1"});
+
         Toast.makeText(this, "Task updated", Toast.LENGTH_SHORT).show();
         finish();
     }

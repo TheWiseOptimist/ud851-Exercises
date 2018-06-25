@@ -143,15 +143,16 @@ public class TaskContentProvider extends ContentProvider {
                         sortOrder);
                 break;
             case TASK_WITH_ID:
-                String id = uri.getPathSegments().get(1);
+//                String id = uri.getPathSegments().get(1);
+                String id=uri.getLastPathSegment();
                 String mSelection = _ID + "=?";
                 String[] mSelectionArgs = new String[]{id};
                 retCursor = getContext().getContentResolver()
                         .query(CONTENT_URI,
-                                null,
+                                projection,
                                 mSelection,
                                 mSelectionArgs,
-                                null);
+                                sortOrder);
                 break;
             // Default exception
             default:
@@ -215,7 +216,8 @@ public class TaskContentProvider extends ContentProvider {
         int match = sUriMatcher.match(uri);
         switch (match) {
             case TASK_WITH_ID:
-                String id = uri.getPathSegments().get(1);
+//                String id = uri.getPathSegments().get(1);
+                String id="1";
                 tasksUpdated = db.update(TABLE_NAME, values, "_id=?", new String[]{id});
                 break;
             default:
