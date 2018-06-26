@@ -3,6 +3,9 @@ package com.example.android.todolist.database;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverter;
+import android.arch.persistence.room.TypeConverters;
+import android.arch.persistence.room.Update;
 
 import java.util.Date;
 
