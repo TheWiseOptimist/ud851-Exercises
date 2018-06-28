@@ -81,7 +81,8 @@ public class AddTaskActivity extends AppCompatActivity {
                 // COMPLETED (3) Extract all this logic outside the Executor and remove the Executor
                 // COMPLETED (2) Fix compile issue by wrapping the return type with LiveData
                 final LiveData<TaskEntry> task = mDb.taskDao().loadTaskById(mTaskId);
-                // COMPLETED (4) Observe tasks and move the logic from runOnUiThread to onChanged
+                // COMPLETED (4) Obser
+                // 've tasks and move the logic from runOnUiThread to onChanged
                 task.observe(this, new Observer<TaskEntry>() {
                     @Override
                     public void onChanged(@Nullable TaskEntry taskEntry) {
