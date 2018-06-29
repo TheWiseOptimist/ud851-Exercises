@@ -15,29 +15,30 @@ package com.example.android.background.sync;/*
  */
 
 import android.app.IntentService;
+import android.app.Notification;
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
 
-// TODO (9) Create WaterReminderIntentService and extend it from IntentService
+// TODO completed (9) Create WaterReminderIntentService and extend it from IntentService
 public class WaterReminderIntentService extends IntentService {
-
-    //  TODO (10) Create a default constructor that calls super with the name of this class
 
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
-     *
      */
+    //  TODO completed (10) Create a default constructor that calls super with the name of this class
     public WaterReminderIntentService() {
         super("WaterReminderIntentService");
     }
 
-    //  TODO (11) Override onHandleIntent
+    //  TODO completed (11) Override onHandleIntent
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
+        //  TODO completed (12) Get the action from the Intent that started this Service
+        //  TODO completed (13) Call ReminderTasks.executeTaskForTag and pass in the action to be performed
+        ReminderTasks.executeTask(getApplicationContext(), intent.getAction());
 
     }
 
-//      TODO (12) Get the action from the Intent that started this Service
-//      TODO (13) Call ReminderTasks.executeTaskForTag and pass in the action to be performed
 
 }
