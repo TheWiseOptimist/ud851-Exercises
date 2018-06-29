@@ -1,6 +1,6 @@
 package com.example.android.background.sync;
 
-// TODO (1) Create a class called ReminderTasks
+// TODO completed (1) Create a class called ReminderTasks
 
 // TODO (2) Create a public static constant String called ACTION_INCREMENT_WATER_COUNT
 
