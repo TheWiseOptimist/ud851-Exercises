@@ -91,10 +91,12 @@ public class MainActivity extends AppCompatActivity implements
         startService(incrementWaterCountIntent);
     }
 
-    // TODO (15) Create a method called testNotification that triggers NotificationUtils' remindUserBecauseCharging
+    // TODO completed (15) Create a method called testNotification that triggers NotificationUtils' remindUserBecauseCharging
     public void testNotification(View view) {
         NotificationUtils notificationUtils = new NotificationUtils();
         notificationUtils.remindUserBecauseCharging(this);
+//        NotificationUtils.remindUserBecauseCharging(this);// TODO: 6/29/18  
+
     }
 
     @Override
