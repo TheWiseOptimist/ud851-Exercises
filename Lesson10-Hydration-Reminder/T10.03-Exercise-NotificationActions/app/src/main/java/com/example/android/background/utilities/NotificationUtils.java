@@ -26,6 +26,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationCompat.Action;
+import android.support.v4.app.NotificationCompat.Builder;
 import android.support.v4.content.ContextCompat;
 
 import com.example.android.background.MainActivity;
@@ -70,7 +72,7 @@ public class NotificationUtils {
                     NotificationManager.IMPORTANCE_HIGH);
             notificationManager.createNotificationChannel(mChannel);
         }
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, WATER_REMINDER_NOTIFICATION_CHANNEL_ID)
+        Builder notificationBuilder = new Builder(context, WATER_REMINDER_NOTIFICATION_CHANNEL_ID)
                 .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
                 .setSmallIcon(R.drawable.ic_drink_notification)
                 .setLargeIcon(largeIcon(context))
@@ -93,7 +95,7 @@ public class NotificationUtils {
     }
 
     //  TODO completed (5) Add a static method called ignoreReminderAction
-    public static NotificationCompat.Action ignoreReminderAction(Context context) {
+    public static Action ignoreReminderAction(Context context) {
         //  TODO completed (6) Create an Intent to launch WaterReminderIntentService
         Intent intent = new Intent(context, WaterReminderIntentService.class);
         //  TODO completed (7) Set the action of the intent to designate you want to dismiss the notification
@@ -105,7 +107,7 @@ public class NotificationUtils {
                 intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
         //  TODO completed (9) Create an Action for the user to ignore the notification (and dismiss it)
-        NotificationCompat.Action action = new NotificationCompat.Action.Builder(
+        Action action = new Action.Builder(
                 R.drawable.ic_cancel_black_24px,
                 "Bug Off!",
                 pendingIntent)
@@ -115,7 +117,7 @@ public class NotificationUtils {
     }
 
     //  TODO completed (11) Add a static method called drinkWaterAction
-    public static NotificationCompat.Action drinkWaterAction(Context context) {
+    public static Action drinkWaterAction(Context context) {
 
         //  TODO completed (12) Create an Intent to launch WaterReminderIntentService
         Intent intent = new Intent(context, WaterReminderIntentService.class);
@@ -126,11 +128,13 @@ public class NotificationUtils {
                 context,
                 ACTION_PENDING_INTENT_INCREMENT_WATER_ID,
                 intent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
+//                PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.FLAG_CANCEL_CURRENT);  // class solution - this cancels existing intent first
         //  TODO completed (15) Create an Action for the user to tell us they've had a glass of water
-        NotificationCompat.Action action = new NotificationCompat.Action(
-                R.drawable.ic_drink_notification,
-                "I'm chugging and glugging",
+        Action action = new Action(
+//                R.drawable.ic_drink_notification,
+                R.drawable.ic_local_drink_black_24px,  // class solution - I see no difference
+                "Chugged!",
                 pendingIntent);
         //  TODO completed (16) Return the action
         return action;
