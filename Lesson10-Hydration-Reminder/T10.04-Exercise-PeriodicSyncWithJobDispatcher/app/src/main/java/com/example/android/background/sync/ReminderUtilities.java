@@ -16,13 +16,13 @@
 package com.example.android.background.sync;
 
 
+import android.app.job.JobService;
 import android.content.Context;
 
 import com.firebase.jobdispatcher.Constraint;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
 import com.firebase.jobdispatcher.Job;
-import com.firebase.jobdispatcher.JobTrigger;
 import com.firebase.jobdispatcher.Lifetime;
 import com.firebase.jobdispatcher.Trigger;
 
@@ -46,10 +46,14 @@ public class ReminderUtilities {
 
         // TODO completed (17) If the job has already been initialized, return
         if (sInitialized) return;
+
+
         // TODO completed (18) Create a new GooglePlayDriver
         GooglePlayDriver driver = new GooglePlayDriver(context);
+
         // TODO completed (19) Create a new FirebaseJobDispatcher with the driver
         FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(driver);
+
         // TODO completed (20) Use FirebaseJobDispatcher's newJobBuilder method to build a job which:
         // - has WaterReminderFirebaseJobService as it's service
         // - has the tag REMINDER_JOB_TAG
