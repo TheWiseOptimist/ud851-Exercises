@@ -50,7 +50,7 @@ public class WaterReminderFirebaseJobService extends JobService {
 
             @Override
             protected void onPostExecute(Object o) {
-                super.onPostExecute(o);
+//                super.onPostExecute(o);
                 jobFinished(job, false);
             }
         };
