@@ -31,6 +31,8 @@ import com.example.android.background.sync.WaterReminderIntentService;
 import com.example.android.background.utilities.NotificationUtils;
 import com.example.android.background.utilities.PreferenceUtilities;
 
+import static com.example.android.background.sync.ReminderUtilities.scheduleChargingReminder;
+
 public class MainActivity extends AppCompatActivity implements
         SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -46,18 +48,19 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_main);
 
         /** Get the views **/
-        mWaterCountDisplay = (TextView) findViewById(R.id.tv_water_count);
-        mChargingCountDisplay = (TextView) findViewById(R.id.tv_charging_reminder_count);
-        mChargingImageView = (ImageView) findViewById(R.id.iv_power_increment);
+        mWaterCountDisplay = findViewById(R.id.tv_water_count);
+        mChargingCountDisplay = findViewById(R.id.tv_charging_reminder_count);
+        mChargingImageView = findViewById(R.id.iv_power_increment);
 
         /** Set the original values in the UI **/
         updateWaterCount();
         updateChargingReminderCount();
 
-        // TODO (23) Schedule the charging reminder
-//        new WaterReminderFirebaseJobService().startService();
-        Intent intent = new Intent(this, WaterReminderFirebaseJobService.class);
-        startService(intent);
+        // TODO completed (23) Schedule the charging reminder
+//        My solution
+//        Intent intent = new Intent(this, WaterReminderFirebaseJobService.class);
+//        startService(intent);
+        scheduleChargingReminder(this);
 
         /** Setup the shared preference listener **/
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -68,8 +71,8 @@ public class MainActivity extends AppCompatActivity implements
      * Updates the TextView to display the new water count from SharedPreferences
      */
     private void updateWaterCount() {
-        int waterCount = PreferenceUtilities.getWaterCount(this);
-        mWaterCountDisplay.setText(waterCount + "");
+        String waterCount = String.valueOf(PreferenceUtilities.getWaterCount(this));
+        mWaterCountDisplay.setText(waterCount);
     }
 
     /**

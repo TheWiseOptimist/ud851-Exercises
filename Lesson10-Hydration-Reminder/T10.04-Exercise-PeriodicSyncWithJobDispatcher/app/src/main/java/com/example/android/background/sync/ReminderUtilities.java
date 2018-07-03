@@ -34,7 +34,7 @@ public class ReminderUtilities {
     //  - sInitialized should be a private static boolean variable which will store whether the job
     //    has been activated or not
     private static final int REMINDER_INTERVAL_SECONDS = 900;
-    private static final int SYNC_FLEXTIME_SECONDS = 900;
+    private static final int SYNC_FLEXTIME_SECONDS = REMINDER_INTERVAL_SECONDS;
     private static final String REMINDER_JOB_TAG = "hydration_reminder_tag";
     private static boolean sInitialized = false;
 
@@ -66,7 +66,9 @@ public class ReminderUtilities {
                 .setConstraints(Constraint.DEVICE_CHARGING)
                 .setLifetime(Lifetime.FOREVER)
                 .setRecurring(true)
-                .setTrigger(Trigger.executionWindow(720, REMINDER_INTERVAL_SECONDS))
+//                .setTrigger(Trigger.executionWindow(720, REMINDER_INTERVAL_SECONDS))
+                .setTrigger(Trigger.executionWindow(REMINDER_INTERVAL_SECONDS,
+                        REMINDER_INTERVAL_SECONDS + SYNC_FLEXTIME_SECONDS))
                 .setReplaceCurrent(true)
                 .build();
 
