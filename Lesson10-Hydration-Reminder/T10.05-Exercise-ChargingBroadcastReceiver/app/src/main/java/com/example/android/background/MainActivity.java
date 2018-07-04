@@ -89,17 +89,16 @@ public class MainActivity extends AppCompatActivity implements
     // registerReceiver with the ChargingBroadcastReceiver and IntentFilter.
     @Override
     protected void onResume() {
-
-        registerReceiver(mChargingBroadcastReceiver, mChargingIntentFilter);
         super.onResume();
+        registerReceiver(mChargingBroadcastReceiver, mChargingIntentFilter);
     }
 
 
     // TODO completed (8) Override onPause and unregister your receiver using the unregisterReceiver method
     @Override
     protected void onPause() {
-        unregisterReceiver(mChargingBroadcastReceiver);
         super.onPause();
+        unregisterReceiver(mChargingBroadcastReceiver);
     }
 
     /**
@@ -173,7 +172,8 @@ public class MainActivity extends AppCompatActivity implements
 
 
     // TODO completed (2) Create an inner class called ChargingBroadcastReceiver that extends BroadcastReceiver
-    public class ChargingBroadcastReceiver extends BroadcastReceiver {
+//    public class ChargingBroadcastReceiver extends BroadcastReceiver {
+    private class ChargingBroadcastReceiver extends BroadcastReceiver {
 
         // TODO completed (3) Override onReceive to get the action from the intent and see if it matches the
         // Intent.ACTION_POWER_CONNECTED. If it matches, it's charging. If it doesn't match, it's not
