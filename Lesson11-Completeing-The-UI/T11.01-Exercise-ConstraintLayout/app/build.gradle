@@ -2,14 +2,16 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    buildToolsVersion "27.0.3"
 
     defaultConfig {
         applicationId "com.example.android.boardingpass"
-        minSdkVersion 14
+        minSdkVersion 18
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
+
     }
 
     buildTypes {
