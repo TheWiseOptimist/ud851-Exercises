@@ -215,12 +215,12 @@
             android:id="@+id/table_header"
             android:layout_width="0dp"
             android:layout_height="24dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
             android:background="@color/colorPrimaryLight"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.33"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/departure_time" />
 
@@ -241,74 +241,76 @@
             android:id="@+id/terminal_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
             android:text="@string/terminal_label"
-            app:layout_constraintEnd_toStartOf="@id/gate_label"
-            app:layout_constraintStart_toStartOf="@+id/table_header"
-            app:layout_constraintTop_toTopOf="@+id/table_header" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textColor="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/table_header"
+            app:layout_constraintEnd_toEndOf="@id/terminal"
+            app:layout_constraintStart_toStartOf="@+id/terminal"
+            app:layout_constraintTop_toTopOf="@id/table_header" />
 
         <TextView
             android:id="@+id/terminal"
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:text="@string/terminal"
-            app:layout_constraintBottom_toBottomOf="@+id/table_body"
-            app:layout_constraintEnd_toEndOf="@+id/terminal_label"
-            app:layout_constraintStart_toStartOf="@+id/terminal_label"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="@+id/table_body"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/table_body"
             app:layout_constraintTop_toTopOf="@+id/table_body" />
 
         <TextView
             android:id="@+id/gate_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:text="@string/gate_label"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textColor="@android:color/black"
             app:layout_constraintBottom_toBottomOf="@id/table_header"
-            app:layout_constraintEnd_toEndOf="@id/table_header"
-            app:layout_constraintStart_toStartOf="@id/table_header"
+            app:layout_constraintEnd_toEndOf="@id/gate"
+            app:layout_constraintStart_toStartOf="@id/gate"
             app:layout_constraintTop_toTopOf="@+id/table_header" />
 
         <TextView
             android:id="@+id/gate"
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
             android:text="@string/gate"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+            android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@+id/table_body"
             app:layout_constraintEnd_toEndOf="@id/table_body"
             app:layout_constraintStart_toStartOf="@id/table_body"
-            app:layout_constraintTop_toTopOf="@+id/table_body" />
+            app:layout_constraintTop_toBottomOf="@+id/table_header" />
 
         <TextView
             android:id="@+id/seat_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
             android:text="@string/seat_label"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textColor="@android:color/black"
             app:layout_constraintBottom_toBottomOf="@id/table_header"
-            app:layout_constraintEnd_toEndOf="@+id/table_header"
-            app:layout_constraintStart_toEndOf="@+id/gate_label"
+            app:layout_constraintEnd_toEndOf="@+id/seat"
+            app:layout_constraintStart_toStartOf="@+id/seat"
             app:layout_constraintTop_toTopOf="@+id/table_header" />
 
         <TextView
             android:id="@+id/seat"
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:text="@string/seat"
-            app:layout_constraintBottom_toBottomOf="@+id/table_body"
-            app:layout_constraintEnd_toEndOf="@+id/seat_label"
-            app:layout_constraintStart_toStartOf="@+id/seat_label"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="@+id/table_body"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/table_body"
             app:layout_constraintTop_toTopOf="@+id/table_body" />
 
         <!-- TODO (14) Create an ImageView for the barcode -->
@@ -316,7 +318,7 @@
             android:id="@+id/barcode"
             android:layout_width="96dp"
             android:layout_height="96dp"
-
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/table_body"
