@@ -51,6 +51,16 @@
                 TODO (3) Move all Views in the flight information section from activity_main to flight_info
                 TODO (5) Add an include tag in activity_main to include flightInfo in the right position
             -->
+            <include
+                android:id="@+id/flight_info"
+                layout="@layout/flight_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewPassengerName">
+
+            </include>
 
             <ImageView
                 android:id="@+id/leftRectangle"
@@ -60,7 +70,7 @@
                 android:layout_marginTop="16dp"
                 android:background="@drawable/shape_rectangle_stroke"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textViewPassengerName" />
+                app:layout_constraintTop_toBottomOf="@id/flight_info" />
 
             <ImageView
                 android:id="@+id/divider"
@@ -81,7 +91,7 @@
                 android:layout_marginEnd="32dp"
                 android:background="@drawable/shape_rectangle_stroke"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textViewPassengerName" />
+                app:layout_constraintTop_toTopOf="@id/leftRectangle" />
 
             <TextView
                 android:id="@+id/textViewOriginAirport"
@@ -230,7 +240,16 @@
                 TODO (4) Move all Views in the boarding information table from activity_main to boarding_info
                 TODO (6) Add an include tag in activity_main to include boardingInfo in the right position
             -->
+            <include
+                android:id="@+id/boarding_info"
+                layout="@layout/boarding_info"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/flight_info">
 
+            </include>
             <ImageView
                 android:id="@+id/tableHeaderImage"
                 android:layout_width="0dp"
