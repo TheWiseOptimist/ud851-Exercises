@@ -8,19 +8,87 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+
+        <ImageView
+            android:id="@+id/leftRectangle"
+            android:layout_width="60dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/shape_rectangle_stroke"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimaryLight"
+            app:layout_constraintBottom_toTopOf="@+id/rightRectangle"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toRightOf="@+id/leftRectangle"
+            app:layout_constraintRight_toLeftOf="@+id/rightRectangle"
+            app:layout_constraintTop_toBottomOf="@+id/rightRectangle" />
+
+        <ImageView
+            android:id="@+id/rightRectangle"
+            android:layout_width="60dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/shape_rectangle_stroke"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
+            android:id="@+id/textViewOriginAirport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            app:layout_constraintBottom_toBottomOf="@+id/divider"
+            app:layout_constraintLeft_toLeftOf="@+id/leftRectangle"
+            app:layout_constraintRight_toRightOf="@+id/leftRectangle"
+            app:layout_constraintTop_toBottomOf="@+id/divider"
+            tools:text="@string/origin_code" />
+
+        <TextView
+            android:id="@+id/textViewDestinationAirport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            app:layout_constraintBottom_toBottomOf="@+id/divider"
+            app:layout_constraintLeft_toLeftOf="@+id/rightRectangle"
+            app:layout_constraintRight_toRightOf="@+id/rightRectangle"
+            app:layout_constraintTop_toBottomOf="@+id/divider"
+            tools:text="@string/destination_code" />
+
+        <ImageView
+            android:id="@+id/imagePlane"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/art_plane"
+            app:layout_constraintBottom_toTopOf="@+id/divider"
+            app:layout_constraintLeft_toRightOf="@+id/leftRectangle"
+            app:layout_constraintRight_toLeftOf="@+id/rightRectangle" />
+
+        <TextView
+            android:id="@+id/textViewFlightCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="Flight Info"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginRight="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintLeft_toRightOf="@+id/leftRectangle"
+            app:layout_constraintRight_toLeftOf="@+id/rightRectangle"
+            app:layout_constraintTop_toTopOf="@+id/divider"
+            tools:text="@string/flight_code" />
+
 
     </android.support.constraint.ConstraintLayout>
 </layout>
