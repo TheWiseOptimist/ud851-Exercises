@@ -2,7 +2,7 @@
     TODO completed (1) Create a new xml file called flight_info in the layout directory
     TODO completed (2) Create a new xml file called boarding_info in the layout directory
 
-    TODO (9) Copy activity_main.xml into the layout-land folder to have 2 layout xml files for the same activity
+    ssssssTODO (9) Copy activity_main.xml into the layout-land folder to have 2 layout xml files for the same activity
     TODO (10) Re-organize the views in the landscape file to fit all in the one screen
 -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"

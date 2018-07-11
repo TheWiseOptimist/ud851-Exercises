@@ -13,7 +13,6 @@
             android:layout_width="0dp"
             android:layout_height="24dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="32dp"
             android:layout_marginRight="16dp"
             android:background="@color/colorPrimaryLight"
             app:layout_constraintHorizontal_bias="0.33"
