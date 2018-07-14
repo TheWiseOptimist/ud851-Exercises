@@ -3,9 +3,10 @@
 buildscript {
     repositories {
         jcenter()
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.android.tools.build:gradle:3.3.0-alpha02'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -14,13 +15,14 @@ buildscript {
 
 allprojects {
     String osName = System.getProperty("os.name").toLowerCase();
-    if (osName.contains("windows")) {
+    if (osName.contains("windows"))
         buildDir = "C:/tmp/${rootProject.name}/${project.name}"
-    }
-    repositories {
-        jcenter()
-    }
 }
+repositories {
+    google()
+    jcenter()
+}
+
 
 task clean(type: Delete) {
     delete rootProject.buildDir
