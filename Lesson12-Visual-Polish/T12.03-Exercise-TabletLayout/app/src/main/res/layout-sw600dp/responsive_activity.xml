@@ -4,7 +4,7 @@
 
 <!-- TODO completed (2) Copy over the responsive_layout xml from the base layout folder -->
 
-<!-- TODO (3) Using a horizontal linear layout, change this xml so that the ImageView appears
+<!-- TODO completed (3) Using a horizontal linear layout, change this xml so that the ImageView appears
  to the left of all text -->
 
 <!-- The image layout height should be = 200dp and weight = 1, add 8dp padding to the right -->
@@ -30,11 +30,12 @@
         android:layout_weight="1"
         android:contentDescription="@string/image_placeholder"
         android:gravity="center"
+        android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:paddingBottom="8dp"
         android:src="@drawable/ic_insert_image" />
 
-    <!-- TODO (4) Wrap the text in a vertical linear layout and add more padding (8dp)
+    <!-- TODO completed (4) Wrap the text in a vertical linear layout and add more padding (8dp)
     to the left and right of all text -->
     <LinearLayout
         android:layout_width="0dp"
